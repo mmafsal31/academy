@@ -1,1 +1,1 @@
-web: gunicorn evren_academy.wsgi:application
+web: gunicorn academy.wsgi:application
