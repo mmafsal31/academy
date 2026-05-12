@@ -1,0 +1,25 @@
+{% extends "academy/base.html" %}
+{% block title %}Services | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow">Services</span>
+      <h2>Everything students need to study with structure</h2>
+    </div>
+    <div class="service-list">
+      {% for service in services %}
+        <article>
+          <div class="service-icon"><i data-lucide="{{ service.icon }}"></i></div>
+          <div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.summary }}</p>
+          </div>
+          {% if service.image %}<img src="{{ service.image.url }}" alt="{{ service.title }}">{% endif %}
+        </article>
+      {% empty %}
+        <p>Add services in admin to display them here.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

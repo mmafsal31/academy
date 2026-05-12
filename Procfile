@@ -1,0 +1,1 @@
+web: gunicorn evren_academy.wsgi:application

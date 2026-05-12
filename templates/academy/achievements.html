@@ -1,0 +1,39 @@
+{% extends "academy/base.html" %}
+{% block title %}Achievements | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow">Showcase</span>
+      <h2>Milestones, outcomes, and proud academy moments</h2>
+    </div>
+    <div class="achievement-grid">
+      {% for achievement in achievements %}
+        <article class="achievement-card">
+          {% if achievement.image %}<img src="{{ achievement.image.url }}" alt="{{ achievement.title }}">{% endif %}
+          <div>
+            <strong>{{ achievement.metric|default:"Milestone" }}</strong>
+            <h3>{{ achievement.title }}</h3>
+            <p>{{ achievement.description }}</p>
+          </div>
+        </article>
+      {% empty %}
+        <p>Add achievements in Django admin to fill this showcase.</p>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="section muted">
+    <div class="section-heading">
+      <span class="eyebrow">Gallery</span>
+      <h2>Photos and brochure highlights</h2>
+    </div>
+    <div class="gallery-grid">
+      {% for item in gallery %}
+        <figure>
+          <img src="{{ item.image.url }}" alt="{{ item.title }}">
+          <figcaption><strong>{{ item.title }}</strong>{{ item.caption }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "academy/base.html" %}
+{% block title %}{{ course.title }} | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  <section class="hero compact">
+    <div class="hero-copy">
+      <span class="eyebrow">Course</span>
+      <h1>{{ course.title }}</h1>
+      <p>{{ course.short_description }}</p>
+      <a class="button primary" href="{% url 'contact' %}">Enquire now</a>
+    </div>
+    <div class="hero-media">
+      {% if course.image %}<img src="{{ course.image.url }}" alt="{{ course.title }}">{% endif %}
+    </div>
+  </section>
+  <section class="section split">
+    <div>
+      <span class="eyebrow">Overview</span>
+      <h2>{{ course.level|default:"Academy program" }}</h2>
+      <p>Duration: {{ course.duration|default:"Flexible" }}</p>
+    </div>
+    <div class="stack-list">
+      {% for highlight in course.highlight_list %}
+        <article><p>{{ highlight }}</p></article>
+      {% empty %}
+        <article><p>Add one highlight per line in admin to show course outcomes.</p></article>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

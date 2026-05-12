@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ settings.name|default:"Evren Academy" }}{% endblock %}</title>
+  <meta name="description" content="{{ settings.tagline|default:'A modern academy website powered by Django.' }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <script defer src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="{% static 'js/site.js' %}"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{% url 'home' %}">
+      {% if settings.logo %}
+        <img src="{{ settings.logo.url }}" alt="{{ settings.name }}">
+      {% else %}
+        <span class="brand-mark">EA</span>
+      {% endif %}
+      <span>
+        <strong>{{ settings.name|default:"Evren Academy" }}</strong>
+        <small>{{ settings.tagline|default:"Learn. Grow. Achieve." }}</small>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><i data-lucide="menu"></i></button>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a class="{% if page_key == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+      <a class="{% if page_key == 'achievements' %}active{% endif %}" href="{% url 'achievements' %}">Achievements</a>
+      <a class="{% if page_key == 'services' %}active{% endif %}" href="{% url 'services' %}">Services</a>
+      <a class="{% if page_key == 'courses' %}active{% endif %}" href="{% url 'courses' %}">Courses</a>
+      <a class="{% if page_key == 'specialty' %}active{% endif %}" href="{% url 'specialty' %}">Specialty</a>
+      <a class="nav-cta" href="{% url 'contact' %}">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    {% if messages %}
+      <section class="messages">
+        {% for message in messages %}
+          <p class="message {{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+      </section>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <h2>{{ settings.name|default:"Evren Academy" }}</h2>
+      <p>{{ settings.tagline|default:"A student-first academy for ambitious learners." }}</p>
+    </div>
+    <div>
+      <strong>Contact</strong>
+      <p>{{ settings.phone|default:"+91 00000 00000" }}</p>
+      <p>{{ settings.email|default:"info@example.com" }}</p>
+    </div>
+    <div>
+      <strong>Visit</strong>
+      <p>{{ settings.address|linebreaksbr|default:"Update the academy address in admin." }}</p>
+    </div>
+  </footer>
+</body>
+</html>

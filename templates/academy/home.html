@@ -1,0 +1,87 @@
+{% extends "academy/base.html" %}
+{% block title %}{{ settings.name|default:"Evren Academy" }} | Academy Website{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+
+  <section class="stats-band">
+    {% for achievement in achievements %}
+      <article>
+        <strong>{{ achievement.metric|default:"Featured" }}</strong>
+        <span>{{ achievement.title }}</span>
+      </article>
+    {% empty %}
+      <article><strong>100%</strong><span>Admin editable academy highlights</span></article>
+    {% endfor %}
+  </section>
+
+  <section class="section" id="courses">
+    <div class="section-heading">
+      <span class="eyebrow">Courses</span>
+      <h2>Programs designed for measurable progress</h2>
+      <a href="{% url 'courses' %}">View all courses</a>
+    </div>
+    <div class="card-grid three">
+      {% for course in courses %}
+        <article class="course-card">
+          {% if course.image %}<img src="{{ course.image.url }}" alt="{{ course.title }}">{% endif %}
+          <div>
+            <small>{{ course.level }} {% if course.duration %}&middot; {{ course.duration }}{% endif %}</small>
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.short_description }}</p>
+            <a href="{{ course.get_absolute_url }}">Explore course</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section muted">
+    <div class="section-heading">
+      <span class="eyebrow">Services</span>
+      <h2>Academy support beyond regular classes</h2>
+      <a href="{% url 'services' %}">See services</a>
+    </div>
+    <div class="card-grid four">
+      {% for service in services %}
+        <article class="feature-card">
+          <i data-lucide="{{ service.icon }}"></i>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.summary }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section split">
+    <div>
+      <span class="eyebrow">Specialty</span>
+      <h2>Focused learning, visible outcomes</h2>
+      <p>Use the admin panel to update the academy's specialty, teaching approach, facilities, and student success stories at any time.</p>
+      <a class="button secondary" href="{% url 'specialty' %}">View specialty</a>
+    </div>
+    <div class="stack-list">
+      {% for specialty in specialties %}
+        <article>
+          <h3>{{ specialty.title }}</h3>
+          <p>{{ specialty.description }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow">Achievements</span>
+      <h2>Showcase results, events, and milestones</h2>
+      <a href="{% url 'achievements' %}">Open showcase</a>
+    </div>
+    <div class="gallery-strip">
+      {% for item in gallery %}
+        <figure>
+          <img src="{{ item.image.url }}" alt="{{ item.title }}">
+          <figcaption>{{ item.title }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

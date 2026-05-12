@@ -1,0 +1,33 @@
+{% extends "academy/base.html" %}
+{% block title %}Contact | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+  <section class="section contact-layout">
+    <div class="contact-card">
+      <span class="eyebrow">Contact us</span>
+      <h2>Start a conversation with the academy</h2>
+      <p>{{ settings.address|linebreaksbr|default:"Add address in admin." }}</p>
+      <p><strong>Phone:</strong> {{ settings.phone|default:"Add phone number" }}</p>
+      <p><strong>Email:</strong> {{ settings.email|default:"Add email address" }}</p>
+      {% if settings.whatsapp %}
+        <a class="button secondary" href="https://wa.me/{{ settings.whatsapp }}">WhatsApp us</a>
+      {% endif %}
+    </div>
+    <form class="contact-form" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <label>
+          <span>{{ field.label }}</span>
+          {{ field }}
+          {% if field.errors %}<small>{{ field.errors|striptags }}</small>{% endif %}
+        </label>
+      {% endfor %}
+      <button class="button primary" type="submit">Send enquiry</button>
+    </form>
+  </section>
+  {% if settings.map_embed_url %}
+    <section class="map-frame">
+      <iframe src="{{ settings.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+  {% endif %}
+{% endblock %}

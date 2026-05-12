@@ -1,0 +1,31 @@
+{% extends "academy/base.html" %}
+{% block title %}Courses | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow">Courses</span>
+      <h2>Choose a program and start with clarity</h2>
+    </div>
+    <div class="card-grid three">
+      {% for course in courses %}
+        <article class="course-card tall">
+          {% if course.image %}<img src="{{ course.image.url }}" alt="{{ course.title }}">{% endif %}
+          <div>
+            <small>{{ course.level }} {% if course.duration %}&middot; {{ course.duration }}{% endif %}</small>
+            <h3>{{ course.title }}</h3>
+            <p>{{ course.short_description }}</p>
+            <ul>
+              {% for highlight in course.highlight_list %}
+                <li>{{ highlight }}</li>
+              {% endfor %}
+            </ul>
+            <a class="button secondary" href="{{ course.get_absolute_url }}">Course details</a>
+          </div>
+        </article>
+      {% empty %}
+        <p>Add courses in admin to display course cards.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

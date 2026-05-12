@@ -1,0 +1,19 @@
+{% extends "academy/base.html" %}
+{% block title %}Specialty | {{ settings.name|default:"Evren Academy" }}{% endblock %}
+{% block content %}
+  {% include "academy/_hero.html" %}
+  <section class="section specialty-layout">
+    {% for item in specialties %}
+      <article>
+        {% if item.image %}<img src="{{ item.image.url }}" alt="{{ item.title }}">{% endif %}
+        <div>
+          <span class="eyebrow">Specialty {{ forloop.counter }}</span>
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.description }}</p>
+        </div>
+      </article>
+    {% empty %}
+      <p>Add specialties in admin to explain what makes the academy different.</p>
+    {% endfor %}
+  </section>
+{% endblock %}

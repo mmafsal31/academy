@@ -1,0 +1,19 @@
+<section class="hero">
+  <div class="hero-copy">
+    {% if hero.eyebrow %}<span class="eyebrow">{{ hero.eyebrow }}</span>{% endif %}
+    <h1>{{ hero.title|default:"Build your future with focused learning" }}</h1>
+    <p>{{ hero.subtitle|default:"Explore programs, guidance, and achievement-focused academy support." }}</p>
+    {% if hero.primary_button_text %}
+      <a class="button primary" href="{{ hero.primary_button_url|default:'#courses' }}">{{ hero.primary_button_text }}</a>
+    {% endif %}
+  </div>
+  <div class="hero-media">
+    {% if hero.image %}
+      <img src="{{ hero.image.url }}" alt="{{ hero.title }}">
+    {% else %}
+      <div class="hero-fallback">
+        <span>Academy</span>
+      </div>
+    {% endif %}
+  </div>
+</section>
